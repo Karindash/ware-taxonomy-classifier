@@ -1,14 +1,23 @@
 import React from 'react';
 
-export function TopBar({ selectedCount, onOpenProfile }) {
+export function TopBar({ mode, selectedCount, onOpenProfile, prdProgress }) {
   return (
     <div className="topbar">
       <div className="topbar-left">
-        <span className="topbar-hint">
-          {selectedCount === 0
-            ? 'Click trait tags to build your system profile'
-            : `${selectedCount} trait${selectedCount !== 1 ? 's' : ''} selected across your profile`}
-        </span>
+        {mode === 'taxonomy' ? (
+          <span className="topbar-hint">
+            {selectedCount === 0
+              ? 'Click trait tags to build your system profile'
+              : `${selectedCount} trait${selectedCount !== 1 ? 's' : ''} selected across your profile`}
+          </span>
+        ) : (
+          <div className="topbar-prd-progress">
+            <span className="topbar-hint">PRD Progress: {prdProgress}%</span>
+            <div className="progress-bar-small">
+              <div className="progress-bar-small-fill" style={{ width: `${prdProgress}%` }} />
+            </div>
+          </div>
+        )}
       </div>
       <button
         className={`profile-btn ${selectedCount > 0 ? 'has-items' : ''}`}
